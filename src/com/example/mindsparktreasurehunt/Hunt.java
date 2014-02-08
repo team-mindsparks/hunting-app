@@ -6,6 +6,10 @@ public class Hunt extends BaseModel {
 	private String name;
 	private ArrayList<Clue> clues;
 	
+	public Hunt() {
+		clues = new ArrayList<Clue>();
+	}
+	
 	public String getName() {
 		return name;
 	}

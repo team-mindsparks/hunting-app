@@ -21,5 +21,9 @@ public class Clue extends BaseModel {
 		this.description = description;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 	
 }
