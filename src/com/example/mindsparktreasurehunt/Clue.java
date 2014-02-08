@@ -4,6 +4,8 @@ public class Clue extends BaseModel {
 
 	private String name;
 	private String description;
+	private Photo photo;
+	private String uuid;
 	
 	public String getName() {
 		return name;
@@ -24,6 +26,21 @@ public class Clue extends BaseModel {
 	public String toString() {
 		return name;
 	}
-	
+
+	public Photo getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(Photo photo) {
+		this.photo = photo;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 	
 }

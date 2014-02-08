@@ -66,14 +66,14 @@ public class BaseModel {
 	            
 	            if (value instanceof JSONArray) {
 	            	JSONArray jArray = (JSONArray) value;
-	            	Class<?> cls = classForName(StringConverters.singularize(StringConverters.camelCase(key)));
+	            	Class<?> cls = classForName(StringConverters.singularize(key));
 	            	ArrayList<BaseModel> children = deserializeArray(jArray, cls);
 	            	assignAttribute(key, children);
 	            	
 	            } else if (value instanceof JSONObject) {
 	            	JSONObject jObject = (JSONObject) value;
 	            	Class<?> cls = classForName(key);
-					BaseModel child = deserializeObject(jObject.getJSONObject(key), cls);
+					BaseModel child = deserializeObject(jObject, cls);
 					assignAttribute(key, child);
 					
 	            } else if (value instanceof String) {
@@ -87,7 +87,7 @@ public class BaseModel {
 	
 	public static Class<?> classForName(String name) {
 		try {
-			return Class.forName("com.example.mindsparktreasurehunt." + name);
+			return Class.forName("com.example.mindsparktreasurehunt." + StringConverters.camelCase(name));
 		} catch (ClassNotFoundException e) {
 			Log.e("Mindspark", "ClassNotFoundException", e);
 		}
@@ -100,7 +100,7 @@ public class BaseModel {
 			field.setAccessible(true);
 			field.set(this, value);
 		} catch (Exception e) {
-			Log.e("Mindspark", "assignAttribute", e);
+			Log.e("Mindspark", "assignAttribute for " + getClass().getSimpleName(), e);
 		}
 	}
 }

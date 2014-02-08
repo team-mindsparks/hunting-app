@@ -16,7 +16,7 @@ public class HuntActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		hunt = Persistence.sharedInstance.getSelectedHunt();
-		setTitle(hunt.getName());
+		setTitle(hunt.getTitle());
 		prepareViews();
 	}
 	
