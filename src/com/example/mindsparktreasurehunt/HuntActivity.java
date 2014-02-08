@@ -1,6 +1,7 @@
 package com.example.mindsparktreasurehunt;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ListView;
 public class HuntActivity extends Activity {
 	Hunt hunt;
 	ListView listView;
+	
+	public static final int STATUS_CODE_CLUE_FOUND = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,10 @@ public class HuntActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
           final Clue item = (Clue) parent.getItemAtPosition(position);
+          Persistence.sharedInstance.setSelectedClue(item);
           Log.e("APP", "" + item.toString());
+          Intent intent = new Intent(HuntActivity.this, ClueFindingActivity.class);
+          startActivityForResult(intent, STATUS_CODE_CLUE_FOUND);
         }
 	};
 
