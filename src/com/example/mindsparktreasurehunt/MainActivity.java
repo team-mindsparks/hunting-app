@@ -34,7 +34,7 @@ public class MainActivity extends AbstractListViewActivity {
 				MainActivity.this.hunts = Hunt.withoutClues(hunts);
 				populate();
 			}
-			
+
 			@Override
 			public void onFailure(ApiClientResponse response, Throwable error, Object object) {
 				Log.e("Mindsparks", "/hunts", error);

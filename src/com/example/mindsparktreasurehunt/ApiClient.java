@@ -64,7 +64,7 @@ public class ApiClient {
 					Throwable throwable, JSONObject object) {
 				ApiClientResponse response = new ApiClientResponse(
 						headers, statusCode);
-				responseHandler.onSuccess(response, object);
+				responseHandler.onFailure(response, throwable, object);
 			}
 
 			@Override
