@@ -194,7 +194,7 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
         helpText1 = (TextView) findViewById(R.id.helpText);
         helpText2 = (TextView) findViewById(R.id.helpText2);
         
-        helpText2.setText(clue.getName());
+        helpText2.setText(clue.getDescription());
     }
     
 
