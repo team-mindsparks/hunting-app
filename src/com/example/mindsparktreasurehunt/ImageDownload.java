@@ -55,13 +55,19 @@ public class ImageDownload {
 		AsyncHttpClient client = new AsyncHttpClient();
 		String[] allowedContentTypes = new String[] { "image/png", "image/jpeg" };
 		final Photo photo = photos.get(index);
-		client.get(photo.getUrl(), new BinaryHttpResponseHandler(allowedContentTypes) {
-		    @Override
-		    public void onSuccess(byte[] fileData) {
-		    	new SavePhotoTask(photo.getUuid()).execute(fileData);
-		        downloadImage(index + 1);
-		    }
-		});
+		
+		File f = new File(Environment.getExternalStorageDirectory(),"mindsparks/pictures/" + photo.getUuid() + ".jpg");
+		if(!f.exists()) { 
+			client.get(photo.getUrl(), new BinaryHttpResponseHandler(allowedContentTypes) {
+			    @Override
+			    public void onSuccess(byte[] fileData) {
+			    	new SavePhotoTask(photo.getUuid()).execute(fileData);
+			        downloadImage(index + 1);
+			    }
+			});
+			return;
+		}
+		downloadImage(index + 1);
 	}
 	
 	class SavePhotoTask extends AsyncTask<byte[], String, String> {
