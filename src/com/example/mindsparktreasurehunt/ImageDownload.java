@@ -73,7 +73,7 @@ public class ImageDownload {
 		
 	    @Override
 	    protected String doInBackground(byte[]... jpeg) {
-	      File photo = new File(Environment.getExternalStorageDirectory(), name + ".jpg");
+	      File photo = new File(Environment.getExternalStorageDirectory(),"mindsparks/pictures/" + name + ".jpg");
 
 	      if (photo.exists()) {
 	            photo.delete();
