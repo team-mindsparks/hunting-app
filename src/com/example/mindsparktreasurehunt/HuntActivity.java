@@ -1,11 +1,5 @@
 package com.example.mindsparktreasurehunt;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

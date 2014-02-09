@@ -1,17 +1,9 @@
 package com.example.mindsparktreasurehunt;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
-import org.opencv.android.Utils;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.core.Mat;
@@ -24,13 +16,9 @@ import org.opencv.imgproc.Imgproc;
 
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.Menu;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 

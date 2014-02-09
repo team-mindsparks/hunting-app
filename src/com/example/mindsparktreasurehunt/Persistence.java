@@ -14,11 +14,10 @@ public class Persistence {
 		this.selectedHunt = selectedHunt;
 	}
 	
-	
 	private Clue selectedClue;
 
-	public Hunt getSelectedClue() {
-		return selectedHunt;
+	public Clue getSelectedClue() {
+		return selectedClue;
 	}
 
 	public void setSelectedClue(Clue item) {

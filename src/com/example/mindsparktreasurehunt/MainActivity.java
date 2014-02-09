@@ -1,18 +1,12 @@
 package com.example.mindsparktreasurehunt;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 
 import com.example.mindsparktreasurehunt.ApiClient.ApiClientResponse;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.BinaryHttpResponseHandler;
 
 import android.os.Bundle;
-import android.os.Environment;
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +16,7 @@ public class MainActivity extends AbstractListViewActivity {
 
 	ListView listView;
 	ArrayList<Hunt> hunts; 
+	ImageDownload imageDownload;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +36,17 @@ public class MainActivity extends AbstractListViewActivity {
 				MainActivity.this.hunts = Hunt.withoutClues(hunts);
 				populate();
 				
-				downloadImages(jsonArray.toString());
+				final String cache = ((JSONArray) object).toString();
 				
+				imageDownload = new ImageDownload(MainActivity.this, hunts, new ImageDownload.ImageDownloadCompleteListener() {
+					@Override
+					public void downloadComplete() {
+						Log.w("!!!!", "FUCKING DONE");
+						FileSave.writeStringAsFile(MainActivity.this, cache, "response.json");
+					}
+				});
+				
+				imageDownload.start();
 			}
 
 			@Override
@@ -57,34 +61,8 @@ public class MainActivity extends AbstractListViewActivity {
 	@Override
 	protected int rowCount() {
 		return hunts.size();
-  }
-
-	protected void downloadImages(String cache) {
-		
-		
-		AsyncHttpClient client = new AsyncHttpClient();
-		String[] allowedContentTypes = new String[] { "image/png", "image/jpeg" };
-		client.get("http://example.com/file.png", new BinaryHttpResponseHandler(allowedContentTypes) {
-		    @Override
-		    public void onSuccess(byte[] fileData) {
-		        // Do something with the file
-		    }
-		});
-		
-		FileSave.writeStringAsFile(MainActivity.this, cache, "response.json");
 	}
 	
-	private void downloadImage() {
-		
-	}
-
-	private void prepareViews() {
-		setContentView(R.layout.activity_main);
-		
-		listView = (ListView) findViewById(R.id.listView);
-		listView.setOnItemClickListener(listViewItemClickListener);
-	}
-
 	@Override
 	protected int listView() {
 		return R.id.listView;

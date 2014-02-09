@@ -12,7 +12,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class ApiClient {
-	private static String BASE_URL_STRING = "http://188.226.156.181:80/";
+	public static String BASE_URL_STRING = "http://188.226.156.181:80/";
 
 
 	private static AsyncHttpClient client() {
