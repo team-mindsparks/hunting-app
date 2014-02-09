@@ -23,18 +23,19 @@
 	    >
 			
 		    <TextView
-	        android:id="@+id/textViewName"
+	        android:id="@+id/textViewDescription"
 	        android:layout_width="match_parent"
-	        android:layout_height="48dp"
-	        android:background="#F39C12"
+	        android:layout_height="170dp"
+	        android:background="#000"
 	        android:ellipsize="end"
 	        android:gravity="center_vertical"
 	        android:lines="1"
+	        android:layout_margin="10dp"
 	        android:paddingLeft="8dp"
 	        android:paddingRight="8dp"
 	        android:scrollHorizontally="true"
 	        android:singleLine="true"
-	        android:text="Title"
+	        android:text=""
 	        android:textAppearance="?android:attr/textAppearanceMedium"
 	        android:textColor="#FFF"
 	        android:textStyle="bold" />
@@ -45,9 +46,10 @@
 	        android:layout_margin="10dp"
 	        android:orientation="vertical" >
 			    <TextView
-			        android:id="@+id/textViewDescription"
+			        android:id="@+id/textViewName"
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
+			        android:gravity="center_horizontal"
 			        android:textAppearance="?android:attr/textAppearanceMedium"
 			        android:text="Description"
 			        />

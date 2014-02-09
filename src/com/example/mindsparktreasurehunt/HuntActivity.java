@@ -20,13 +20,6 @@ public class HuntActivity extends AbstractListViewActivity {
 		setTitle(hunt.getTitle());
 	}
 	
-	AdapterView.OnItemClickListener listViewItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-	};
-
 	@Override
 	protected int rowCount() {
 		return hunt.getClues().size();
@@ -46,7 +39,6 @@ public class HuntActivity extends AbstractListViewActivity {
 	protected void populateRowAtPosition(int position, View row) {
 		Clue clue = hunt.getClues().get(position);
 		setWidgetText(row, R.id.textViewName, clue.getName());
-		setWidgetText(row, R.id.textViewDescription, clue.getDescription());
 		rotateViewRandomly(row);
 	}
 
