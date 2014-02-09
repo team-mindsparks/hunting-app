@@ -101,7 +101,7 @@ public class ClueFindingActivity extends Activity implements CvCameraViewListene
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_clue_finding);
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
 

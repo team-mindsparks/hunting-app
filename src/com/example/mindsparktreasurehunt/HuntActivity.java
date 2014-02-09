@@ -1,5 +1,11 @@
 package com.example.mindsparktreasurehunt;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.BinaryHttpResponseHandler;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,9 +40,10 @@ public class HuntActivity extends Activity {
 	AdapterView.OnItemClickListener listViewItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-          final Clue item = (Clue) parent.getItemAtPosition(position);
-          Persistence.sharedInstance.setSelectedClue(item);
-          Log.e("APP", "" + item.toString());
+          final Clue clue = (Clue) parent.getItemAtPosition(position);
+          Persistence.sharedInstance.setSelectedClue(clue);
+          Log.e("APP", "" + clue.toString());
+         
           Intent intent = new Intent(HuntActivity.this, ClueFindingActivity.class);
           startActivityForResult(intent, STATUS_CODE_CLUE_FOUND);
         }

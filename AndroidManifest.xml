@@ -8,6 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
+    
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -28,7 +31,8 @@
         <activity android:name="com.example.mindsparktreasurehunt.HuntActivity" />
         <activity
             android:name="com.example.mindsparktreasurehunt.ClueFindingActivity"
-            android:label="@string/title_activity_clue_finding" >
+            android:label="@string/title_activity_clue_finding"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 
