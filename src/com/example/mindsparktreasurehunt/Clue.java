@@ -1,11 +1,21 @@
 package com.example.mindsparktreasurehunt;
 
+import java.io.File;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 public class Clue extends BaseModel {
 
 	private String name;
 	private String description;
 	private Photo photo;
 	private String uuid;
+	private String fact;
+
+	private static final String PREFS_FILE = "MindsparksClues";
 	
 	public String getName() {
 		return name;
@@ -31,6 +41,19 @@ public class Clue extends BaseModel {
 		return photo;
 	}
 
+    public String imagePath() {
+    	return "/storage/sdcard0/mindsparks/pictures/" + getPhoto().getUuid() + ".jpg";
+    }
+	
+    public Bitmap getBitmap() {
+    	Bitmap bitmap = null;
+    	File imgFile = new File(imagePath());
+    	if(imgFile.exists()){
+		    bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+		}
+    	return bitmap;
+    }
+    
 	public void setPhoto(Photo photo) {
 		this.photo = photo;
 	}
@@ -41,6 +64,26 @@ public class Clue extends BaseModel {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public String getFact() {
+		return fact;
+	}
+
+	public void setFact(String fact) {
+		this.fact = fact;
+	}
+	
+	public boolean isComplete(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
+		return prefs.getBoolean("complete", false);
+	}
+	
+	public void setComplete(Context context) {
+		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("complete", true);
+		editor.commit();
 	}
 	
 }

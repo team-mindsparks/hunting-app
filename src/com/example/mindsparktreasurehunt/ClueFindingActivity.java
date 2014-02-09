@@ -1,5 +1,6 @@
 package com.example.mindsparktreasurehunt;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,20 @@ import org.opencv.imgproc.Imgproc;
 
 
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ClueFindingActivity extends BaseActivity implements CvCameraViewListener2 {
 
@@ -53,6 +61,12 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
     private Mat cameraImage;
     private Mat matchImage;
 
+    private Clue clue;
+    
+    private TextView helpText1;
+    private TextView helpText2;
+   
+    
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
         public void onManagerConnected(int status) {
@@ -68,7 +82,7 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
                     matcher = DescriptorMatcher.create(DescriptorMatcher.BRUTEFORCE_HAMMING);
                     extractor = DescriptorExtractor.create(DescriptorExtractor.ORB);
                     Log.e("LOADING", "mindsparks/pictures/"+Persistence.sharedInstance.getSelectedClue().getPhoto().getUuid()+".jpg");
-                    matchImage = Highgui.imread("/storage/sdcard0/mindsparks/pictures/"+Persistence.sharedInstance.getSelectedClue().getPhoto().getUuid()+".jpg");
+                    matchImage = Highgui.imread(clue.imagePath());
                     Log.e("FSD", matchImage.toString());
                     matchKeypoints = new MatOfKeyPoint();
                     matchedDescriptors = new Mat();
@@ -83,6 +97,45 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
             }
         }
     };
+	
+    
+	private void flashWhite() {
+		
+		final View whiteFlash = findViewById(R.id.whiteFlash);
+		whiteFlash.setVisibility(View.VISIBLE);
+		AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
+		animation.setDuration(300);
+		
+		animation.setAnimationListener(new AnimationListener() {
+			public void onAnimationStart(Animation animation) { }
+			public void onAnimationRepeat(Animation animation) {}
+			@Override
+			public void onAnimationEnd(Animation animation) {
+				View polaroid = findViewById(R.id.polaroidContent);
+				polaroid.setVisibility(View.VISIBLE);
+				ImageView polaroidImageView = (ImageView) findViewById(R.id.polaroidImage);
+				File imgFile = new File(clue.imagePath());
+				if(imgFile.exists()){
+				    Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+				    polaroidImageView.setImageBitmap(myBitmap);
+				}
+				TextView polaroidText = (TextView) findViewById(R.id.textViewName);
+				polaroidText.setText(clue.getName());
+				
+				helpText1.setText("Congratulations on finding the clue!");
+				helpText2.setText("To collect more clues, press the back button");
+				
+				clue.setComplete(getApplicationContext());
+				
+				AlphaAnimation animation2 = new AlphaAnimation(1.0f, 0.0f);
+				animation2.setDuration(300);
+				animation2.setFillAfter(true); 
+				whiteFlash.startAnimation(animation2);
+			}
+		});
+		
+		whiteFlash.startAnimation(animation);
+	}
 
     @Override
     public void onPause()
@@ -122,13 +175,26 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
         setContentView(R.layout.activity_clue_finding);
 
         mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);
-
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
-        
-        
         mOpenCvCameraView.setCvCameraViewListener(this);
         
+        Log.v("geiojg", "this code runs");
         
+        Button testButton = (Button) findViewById(R.id.testButton);
+        testButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				flashWhite();
+			}	
+		});
+        
+        clue = Persistence.sharedInstance.getSelectedClue();
+        
+        
+        helpText1 = (TextView) findViewById(R.id.helpText);
+        helpText2 = (TextView) findViewById(R.id.helpText2);
+        
+        helpText2.setText(clue.getName());
     }
     
 

@@ -1,9 +1,14 @@
 package com.example.mindsparktreasurehunt;
 
+import java.io.File;
+
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 public class HuntActivity extends AbstractListViewActivity {
@@ -40,6 +45,13 @@ public class HuntActivity extends AbstractListViewActivity {
 		Clue clue = hunt.getClues().get(position);
 		setWidgetText(row, R.id.textViewName, clue.getName());
 		rotateViewRandomly(row);
+		
+		
+		if (clue.isComplete(HuntActivity.this)) {
+			ImageView polaroidImageView = (ImageView) row.findViewById(R.id.polaroidImage);
+			Bitmap bitmap = clue.getBitmap();
+			polaroidImageView.setImageBitmap(bitmap);
+		}
 	}
 
 	@Override
@@ -50,6 +62,5 @@ public class HuntActivity extends AbstractListViewActivity {
         Intent intent = new Intent(HuntActivity.this, ClueFindingActivity.class);
         startActivityForResult(intent, STATUS_CODE_CLUE_FOUND);
 	}
-
 	
 }

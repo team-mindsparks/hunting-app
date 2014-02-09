@@ -13,4 +13,101 @@
         opencv:show_fps="true"
         opencv:camera_id="any" />
 
+    <TextView 
+        android:id="@+id/helpText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Point at the clue"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:background="#FFF"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        />
+    
+     <TextView 
+        android:id="@+id/helpText2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Clue"
+        android:textColor="#000"
+        android:background="#FFF"
+        android:textSize="18dp"
+        android:padding="10dp"
+        android:textColorHighlight="#FFF"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+   		android:layout_alignParentBottom="true"
+        />
+    
+    <View
+        android:id="@+id/whiteFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#FFF"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
+    
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+    
+        <RelativeLayout
+    android:id="@+id/polaroidContent"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp"
+    android:background="@null"
+    android:layout_centerInParent="true"
+    android:visibility="invisible"
+    
+     >
+	<LinearLayout 
+	    android:layout_alignParentTop="true"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_marginTop="8dp"
+	    android:paddingLeft="6dp"
+	    android:paddingTop="5dp"
+	    android:paddingRight="6dp"
+	    android:paddingBottom="7dp"
+	    android:background="@drawable/patchshadow"
+	    >
+			
+		    <ImageView
+	        android:id="@+id/polaroidImage"
+	        android:layout_width="match_parent"
+	        android:layout_height="170dp"
+	        android:background="#000"
+	        android:gravity="center_vertical"
+	        android:layout_margin="10dp"
+	        android:paddingLeft="8dp"
+	        android:paddingRight="8dp"
+			/>
+	
+		    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:orientation="vertical" >
+			    <TextView
+			        android:id="@+id/textViewName"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center_horizontal"
+			        android:textAppearance="?android:attr/textAppearanceMedium"
+			        android:text="Description"
+			        />
+	
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>
+
 </RelativeLayout>

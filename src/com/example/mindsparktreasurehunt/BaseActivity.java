@@ -19,7 +19,7 @@ public abstract class BaseActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		random = new Random(); 
+		random = new Random();
 	}
 	
 	protected void rotateViewRandomly(View view) {

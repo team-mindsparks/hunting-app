@@ -83,7 +83,6 @@ public class MainActivity extends AbstractListViewActivity {
 
 	@Override
 	protected void onItemClicked(int row) {
-		Log.v("!!!", "tapped row: " + row);
 		Hunt hunt = hunts.get(row);
         Persistence.sharedInstance.setSelectedHunt(hunt);
         startActivity(new Intent(MainActivity.this, HuntActivity.class));

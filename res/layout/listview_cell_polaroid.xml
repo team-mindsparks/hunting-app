@@ -28,23 +28,16 @@ android:gravity="center_horizontal"
 	    android:background="@drawable/patchshadow"
 	    >
 			
-		    <TextView
-	        android:id="@+id/textViewDescription"
+		    <ImageView
+	        android:id="@+id/polaroidImage"
 	        android:layout_width="match_parent"
 	        android:layout_height="170dp"
 	        android:background="#000"
-	        android:ellipsize="end"
 	        android:gravity="center_vertical"
-	        android:lines="1"
 	        android:layout_margin="10dp"
 	        android:paddingLeft="8dp"
 	        android:paddingRight="8dp"
-	        android:scrollHorizontally="true"
-	        android:singleLine="true"
-	        android:text=""
-	        android:textAppearance="?android:attr/textAppearanceMedium"
-	        android:textColor="#FFF"
-	        android:textStyle="bold" />
+			/>
 	
 		    <LinearLayout
 	        android:layout_width="fill_parent"
