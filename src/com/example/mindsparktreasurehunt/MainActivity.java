@@ -7,34 +7,32 @@ import org.json.JSONArray;
 import com.example.mindsparktreasurehunt.ApiClient.ApiClientResponse;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AbstractListViewActivity {
 
 	ListView listView;
+	ArrayList<Hunt> hunts; 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		prepareViews();
+		hunts = new ArrayList<Hunt>();
+		setContentView(R.layout.activity_main);
 		setTitle("Treasure Hunts");
 		fetchHunts();
 	}
 	
 	private void fetchHunts() {	
 		ApiClient.get("/hunts", null, new ApiClient.ApiClientResponseHandler() {
-			
 			@Override
 			public void onSuccess(ApiClientResponse response, Object object) {
 				ArrayList<BaseModel> hunts = BaseModel.deserializeArray((JSONArray) object, Hunt.class);
-				
-				populateTreasureHunts(hunts);
+				MainActivity.this.hunts = Hunt.withoutClues(hunts);
+				populate();
 			}
 			
 			@Override
@@ -44,36 +42,34 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	private void prepareViews() {
-		setContentView(R.layout.activity_main);
-		
-		listView = (ListView) findViewById(R.id.listView);
-		listView.setOnItemClickListener(listViewItemClickListener);
+	@Override
+	protected int rowCount() {
+		return hunts.size();
 	}
-	
-	AdapterView.OnItemClickListener listViewItemClickListener = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-          final Hunt item = (Hunt) parent.getItemAtPosition(position);
-          Persistence.sharedInstance.setSelectedHunt(item);
-          startActivity(new Intent(MainActivity.this, HuntActivity.class));
-        }
-	};
 
-	private void populateTreasureHunts(ArrayList<BaseModel> hunts) {
-		ArrayAdapter<BaseModel> adapter = new ArrayAdapter<BaseModel>(this, android.R.layout.simple_list_item_1, filterHuntsWithoutClues(hunts));
-		listView.setAdapter(adapter);
+	@Override
+	protected int listView() {
+		return R.id.listView;
 	}
-	
-	private ArrayList<BaseModel> filterHuntsWithoutClues(ArrayList<BaseModel> hunts) {
-		ArrayList<BaseModel> filtered = new ArrayList<BaseModel>();
-		for (BaseModel model : hunts) {
-			Hunt hunt = (Hunt) model;
-			if (hunt.getClues().size() > 0) {
-				filtered.add(hunt);
-			}
-		}
-		return filtered;
+
+	@Override
+	protected int cellLayoutView() {
+		return R.layout.listview_cell;
+	}
+
+	@Override
+	protected void populateRowAtPosition(int position, View row) {
+		Hunt hunt = hunts.get(position);
+		setWidgetText(row, R.id.textViewName, hunt.getTitle());
+		setWidgetText(row, R.id.textViewDescription, hunt.getDescription());
+	}
+
+	@Override
+	protected void onItemClicked(int row) {
+		Log.v("!!!", "tapped row: " + row);
+		Hunt hunt = hunts.get(row);
+        Persistence.sharedInstance.setSelectedHunt(hunt);
+        startActivity(new Intent(MainActivity.this, HuntActivity.class));
 	}
 
 }

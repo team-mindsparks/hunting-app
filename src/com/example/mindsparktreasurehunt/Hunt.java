@@ -39,4 +39,14 @@ public class Hunt extends BaseModel {
 		this.title = title;
 	}
 
+	public static ArrayList<Hunt> withoutClues(ArrayList<?> hunts) {
+		ArrayList<Hunt> filtered = new ArrayList<Hunt>();
+		for (Object model : hunts) {
+			Hunt hunt = (Hunt) model;
+			if (hunt.getClues().size() > 0) {
+				filtered.add(hunt);
+			}
+		}
+		return filtered;
+	}
 }
