@@ -99,7 +99,7 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
     };
 	
     
-	private void flashWhite() {
+	private void trigger() {
 		
 		final View whiteFlash = findViewById(R.id.whiteFlash);
 		whiteFlash.setVisibility(View.VISIBLE);
@@ -126,6 +126,9 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
 				helpText2.setText("To collect more clues, press the back button");
 				
 				clue.setComplete(getApplicationContext());
+				
+				View greyout = findViewById(R.id.greyout);
+				greyout.setVisibility(View.VISIBLE);
 				
 				AlphaAnimation animation2 = new AlphaAnimation(1.0f, 0.0f);
 				animation2.setDuration(300);
@@ -179,14 +182,6 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
         mOpenCvCameraView.setCvCameraViewListener(this);
         
         Log.v("geiojg", "this code runs");
-        
-        Button testButton = (Button) findViewById(R.id.testButton);
-        testButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				flashWhite();
-			}	
-		});
         
         clue = Persistence.sharedInstance.getSelectedClue();
         
@@ -266,17 +261,18 @@ public class ClueFindingActivity extends BaseActivity implements CvCameraViewLis
         Log.e("", "MATCHED "+ matchesList.size());
         Log.e("", "Good: "+ goodReferencePointsList.size());
 
+        if (goodReferencePointsList.size() > 5) {
+        	runOnUiThread(new Runnable() {
+				
+				@Override
+				public void run() {
+					trigger();
+				}
+			});
+        	
+        }
 
-//        matcher.match(keypoints1, matchKeypoints, matches);
 
-//        Scalar kpColor = new Scalar(255,159,10);//this will be color of keypoints
-        //featuredImg will be the output of first image
-//        Imgproc.cvtColor(cameraImage, featuredImg, Imgproc.COLOR_RGBA2RGB);
-//        Features2d.drawKeypoints(featuredImg, keypoints1, featuredImg , kpColor, 0);
-        
-//        Features2d.drawMatches(cameraImage, keypoints1, matchImage, matchKeypoints, matches, cameraImage); 
-
-        
 
         return cameraImage;
     }

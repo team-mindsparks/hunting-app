@@ -76,13 +76,13 @@ public class Clue extends BaseModel {
 	
 	public boolean isComplete(Context context) {
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
-		return prefs.getBoolean("complete", false);
+		return prefs.getBoolean(name + uuid + "complete", false);
 	}
 	
 	public void setComplete(Context context) {
 		SharedPreferences prefs = context.getSharedPreferences(PREFS_FILE, 0);
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.putBoolean("complete", true);
+		editor.putBoolean(name + uuid + "complete", true);
 		editor.commit();
 	}
 	

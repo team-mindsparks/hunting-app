@@ -2,6 +2,8 @@ package com.example.mindsparktreasurehunt;
 
 import java.io.File;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -57,10 +59,23 @@ public class HuntActivity extends AbstractListViewActivity {
 	@Override
 	protected void onItemClicked(int row) {
         final Clue clue = hunt.getClues().get(row);
-        Persistence.sharedInstance.setSelectedClue(clue);
-       
-        Intent intent = new Intent(HuntActivity.this, ClueFindingActivity.class);
-        startActivityForResult(intent, STATUS_CODE_CLUE_FOUND);
+        
+        if (clue.isComplete(HuntActivity.this)) {
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setMessage(clue.getFact())
+    			   .setTitle("Fact for " + clue.getName())
+    		       .setCancelable(false)
+    		       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+    		    	   public void onClick(DialogInterface dialog, int which) {}
+    				});
+    		AlertDialog alert = builder.create();
+    		alert.show();
+        } else {
+        	Persistence.sharedInstance.setSelectedClue(clue);
+            Intent intent = new Intent(HuntActivity.this, ClueFindingActivity.class);
+            startActivityForResult(intent, STATUS_CODE_CLUE_FOUND);
+        }
+        
 	}
 	
 }
