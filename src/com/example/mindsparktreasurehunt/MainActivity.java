@@ -17,7 +17,7 @@ public class MainActivity extends AbstractListViewActivity {
 	ListView listView;
 	ArrayList<Hunt> hunts; 
 	ImageDownload imageDownload;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,6 +78,7 @@ public class MainActivity extends AbstractListViewActivity {
 		Hunt hunt = hunts.get(position);
 		setWidgetText(row, R.id.textViewName, hunt.getTitle());
 		setWidgetText(row, R.id.textViewDescription, hunt.getDescription());
+		rotateViewRandomly(row);
 	}
 
 	@Override

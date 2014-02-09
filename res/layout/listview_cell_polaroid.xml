@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="4dp"
+    android:background="@null"
+     >
+	<LinearLayout 
+	    android:layout_alignParentTop="true"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_marginTop="8dp"
+	    android:paddingLeft="6dp"
+	    android:paddingTop="5dp"
+	    android:paddingRight="6dp"
+	    android:paddingBottom="7dp"
+	    android:background="@drawable/patchshadow"
+	    >
+			
+		    <TextView
+	        android:id="@+id/textViewName"
+	        android:layout_width="match_parent"
+	        android:layout_height="48dp"
+	        android:background="#F39C12"
+	        android:ellipsize="end"
+	        android:gravity="center_vertical"
+	        android:lines="1"
+	        android:paddingLeft="8dp"
+	        android:paddingRight="8dp"
+	        android:scrollHorizontally="true"
+	        android:singleLine="true"
+	        android:text="Title"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textColor="#FFF"
+	        android:textStyle="bold" />
+	
+		    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="10dp"
+	        android:orientation="vertical" >
+			    <TextView
+			        android:id="@+id/textViewDescription"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:textAppearance="?android:attr/textAppearanceMedium"
+			        android:text="Description"
+			        />
+	
+		</LinearLayout>
+	</LinearLayout>
+</RelativeLayout>

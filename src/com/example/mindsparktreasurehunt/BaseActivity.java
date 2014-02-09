@@ -1,13 +1,38 @@
 package com.example.mindsparktreasurehunt;
 
+import java.util.Random;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public abstract class BaseActivity extends Activity {
+	
+	Random random;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		random = new Random(); 
+	}
+	
+	protected void rotateViewRandomly(View view) {
+		float rotation = (random.nextInt(200) - 100) / 100.0f;
+	    Animation an = new RotateAnimation(0.0f, rotation, 0, 0);
+	    an.setDuration(300);                 // duration in ms
+	    an.setRepeatCount(0);                // -1 = infinite repeated
+	    an.setRepeatMode(Animation.REVERSE); // reverses each repeat
+	    an.setFillAfter(true);               // keep rotation after animation
+
+	    // Aply animation to image view
+	    view.setAnimation(an);
+	}
 	
 	protected void setWidgetText(View widget, String text) {
 		if (widget instanceof TextView) {
